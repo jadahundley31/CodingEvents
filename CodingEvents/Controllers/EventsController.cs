@@ -10,17 +10,28 @@ namespace CodingEvents.Controllers
 {
     public class EventsController : Controller
     {
+        private static List<string> Events = new List<string>();
+
         // GET: /<controller>/
         public IActionResult Index()
         {
-            List<string> Events = new List<string>();
-
-            Events.Add("Code With Pride");
-            Events.Add("Strange Loop");
-            Events.Add("Women Who Code");
-
             ViewBag.events = Events;
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Route("/Events/Add")]
+        public IActionResult NewEvent(string name)
+        {
+            Events.Add(name);
+
+            return Redirect("/Events");
         }
     }
 }
